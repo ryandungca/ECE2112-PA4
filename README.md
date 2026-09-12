@@ -9,10 +9,18 @@ This repository contains code for Programming Assignment 4 of the course ECE2112
 
 To view the code itself, access the [related Python notebook file](ECE2112-PA4.ipynb). The requisite `board2.xlsx` file to be used alongside the code is not included.
 
+To perform all the required tasks, the file `board2.xlsx` is imported as a DataFrame by the line `board = pd.read_excel('board2.xlsx')`; notably, as it is an `.xlsx` file, it uses a different function. Additionally, as the column `Average`, which is required for all three tasks, is missing, it is inserted with the line `board['Average']=(board['Math'] + board['Electronics'] + board['GEAS'] + board['Communication'])/4`, generating the column `Average` based on the values of the `Math`, `Electronics`, `GEAS`, and `Communication` columns. This new column is then attached to the rightmost end of the DataFrame.
+
+Similarly to Programming Assignment 3, the `display()` function is preferred for displaying DataFrames over `print()` for the richer formatting.
+
 # A. Visayas Communication Dataframe
 >_Objective_: Create a DataFrame named `VisComm` containing students whose `Hometown` is `Visayas` and whose `Track` is `Communication`. Retain only these columns, in the stated order: `Name, Gender, Math, Electronics, Average`. Display the resulting DataFrame and its number of rows. Both filtering conditions must be applied to the source dataset before the columns are selected.
 
-The constructed solution is:
+To generate the requested DataFrame, the `.loc` method is used, where the rows are identified by the Boolean condition `&` where both the row's `Hometown` and `Track` must be Visayas and Communication, respectively. The range of columns included are those required by the instructions, namely `Name`, `Gender`, `Math`, `Electronics`, and `Average`.
+
+The DataFrame is then displayed by `display(VisComm)`, and line `print(len(VisComm))` prints the amount of rows of the new DataFrame `VisComm`. Here, the function `len()` returns the amount of items in an object; for a DataFrame, this is the amount of rows or entries present.
+
+The constructed solution, omitting importing additional libraries and the `board2.xlsx` file, is:
 ```py
 VisComm = board.loc[(board['Hometown']=='Visayas')&(board['Track']=='Communication'), ['Name', 'Gender', 'Math', 'Electronics','Average']]
 
@@ -23,7 +31,11 @@ print(len(VisComm))
 # B. Visayas Female Dataframe
 >_Objective_: Create a second DataFrame named `VisFemale` containing students whose `Hometown` is `Visayas` and whose `Gender` is `Female`. Retain only: `Name, Track, GEAS, Electronics, Average`. Display `VisFemale`. Then display only the rows of `VisFemale` whose `Average` is at least 60. Do not overwrite `VisFemale` when performing this second filter.
 
-The constructed solution is:
+To construct the requested DataFrame, similar to problem A, the `.loc` method is used, instead requiring that the row's `Hometown` and `Gender` are Visayas and Female, respectively. The columns requested to be retained are also identified in the second argument, these being `Name`, `Track`, `GEAS`, `Electronics`, and `Average`.
+
+The DataFrame is then displayed by `display(VisFemale)`. The line `display(VisFemale.loc[VisFemale['Average']>=60]` then fulfills the second display request of the problem, where the `.loc` method uses the Boolean operator `>=` to identify all rows of `VisFemale` where the recorded `Average` is greater than or equal to 60, without constructing additional DataFrames or altering the source. 
+
+The constructed solution, omitting importing additional libraries and the `board2.xlsx` file, is:
 ```py
 VisFemale = board.loc[(board['Hometown']=='Visayas')&(board['Gender']=='Female'), ['Name', 'Track', 'GEAS', 'Electronics', 'Average']]
 
@@ -70,3 +82,4 @@ plt.show()
 ## History
 - 2026, September 10: File created.
 - 2026, September 11: Uploaded Jupyter notebook; solutions introduced.
+- 2026, September 12: Introduced explanations for solutions to problems A and B.
