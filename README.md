@@ -50,6 +50,10 @@ display(VisFemale.loc[VisFemale['Average']>=60])
 > - Create one figure containing three bar charts: mean `Average` by `Track`, by `Gender`, and by `Hometown`.
 > - Below the figure, write three concise statements identifying the category with the highest sample mean for each feature.
 
+For each requested category, the mean average of the features is computed by using the `.pivot_table()` method, which groups data according to a certain `index`, and processes some related data `values` using a certain function `aggfunc`: if `aggfunc` is not specified, it defaults to taking the mean of all values. Also, multiple values can be given for `index`, in which case the pivot table will use all possible combinations of `index` values to summarize data. To ease the processing of the pivot tables, the method `.reset.index()` is stacked, which properly assigns each group of data its own index, allowing the data to more easily be called later on.
+
+For instance, the line `mtrack = board.pivot_table(index='Track', values='Average').reset_index()` provides the arguments `(index='Track', values='Average')`: this groups the data in the `Average` column by the respective `Track` it belongs to. However, since there is no `aggfunc` specified, the pivot table defaults to taking the mean of all `Average` values. `.reset_index()` is then stacked to assign an index of 0 to 2 to each row, corresponding to the three total listed `Track` values. This process is repeated to group data based on `Gender` and `Hometown`, with all three DataFrames being stored in `mtrack`, `mgender`, and `mregion`.
+
 The constructed solution is:
 ```py
 mtrack = board.pivot_table(index='Track', values='Average').reset_index()
@@ -83,3 +87,4 @@ plt.show()
 - 2026, September 10: File created.
 - 2026, September 11: Uploaded Jupyter notebook; solutions introduced.
 - 2026, September 12: Introduced explanations for solutions to problems A and B.
+- 2026, September 13: Introduced explanation for solution to problem C (partial).
