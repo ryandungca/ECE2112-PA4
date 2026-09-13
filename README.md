@@ -54,6 +54,12 @@ For each requested category, the mean average of the features is computed by usi
 
 For instance, the line `mtrack = board.pivot_table(index='Track', values='Average').reset_index()` provides the arguments `(index='Track', values='Average')`: this groups the data in the `Average` column by the respective `Track` it belongs to. However, since there is no `aggfunc` specified, the pivot table defaults to taking the mean of all `Average` values. `.reset_index()` is then stacked to assign an index of 0 to 2 to each row, corresponding to the three total listed `Track` values. This process is repeated to group data based on `Gender` and `Hometown`, with all three DataFrames being stored in `mtrack`, `mgender`, and `mregion`.
 
+Matplotlib is then used to construct the requested graphs, by `graph, axes = plt.subplots(nrows=1, ncols=3, figsize=(16,4))`. The `.subplots()` function returns two elements: the figure, here the first variable `graph`, and the subplot, here the second variable `axes`; the figure serves as the overall container for the subplot, which works as an array of objects that each draw a graph in a dedicated area within the plot. The amount of subplots corresponds to the provided `nrows` and `ncols` arguments, which specify the number of rows and columns to divide the figure into. Additionally, a `figsize` argument can be passed to the figure to dictate the exact dimensions of the figure. These arguments can be omitted, and the method will simply default to generating one row and one column. Here, the arguments `nrows=1, ncols=3, figsize=(16,4)` is used, specifying that there should be three adjacent areas for subplots, using the `figsize` of 16 by 4.
+
+The subplots can then be modified by invoking them by their index, similar to invoking data from a Numpy array or Pandas DataFrame. As the plot only has one row and three columns, each subplot will be invoked by their column index, starting from `0` to `2`. For each subplot, two lines of code are used. The first line, `axes[0].bar(mtrack['Track'], mtrack['Average'])`, uses the `.bar()` method to construct a bar graph within the first subplot, `axes[0]`. Two arguments must be supplied; the first, here `mtrack['Track']`, identifies the values for the x-axis of the bar graph, and the second, here `mtrack['Average']`, identifies the corresponding value for the y-axis. The second line of code, `axes[0].set(title='Mean Average by Track', xlabel='Track', ylabel='Mean Average')`, uses the `.set()` method to supply additional labels to the graph within the subplot. A title, x-axis label, and y-axis label, are all set by providing the arguments `title`, `xlabel`, and `ylabel`, respectively. 
+
+Finally, text is inserted into the figure by using the `.text()` method on the figure `graph`. The first three necessary arguments specify the position of the text along the x- and y-axes of the figure, and then the text iself. Notably, if the provided position exceeds the size of the figure, the figure will be extended to contain it. Additional arguments may be supplied to specify the weight, style, or size of the text, through `weight`, `style`, and `size`, respectively. Two lines of text are introduced by the code: one at coordinates `0.125, -0.1`, serving as a larger, bold label for the interpretation of the graphs. The next line introduces the actual interpretations at coordinates `0.125, -0.25`, simply stating which category holds the highest mean average for each feature. Finally, the entire completed figure is displayed by using the `.show()` function.
+
 The constructed solution is:
 ```py
 mtrack = board.pivot_table(index='Track', values='Average').reset_index()
@@ -64,7 +70,7 @@ display(mtrack)
 display(mgender)
 display(mregion)
 
-graph, axes = plt.subplots(nrows=1, ncols=3, figsize=(16,4)) # works like a numpy matrix, for graphs
+graph, axes = plt.subplots(nrows=1, ncols=3, figsize=(16,4))
 
 axes[0].bar(mtrack['Track'], mtrack['Average'])
 axes[0].set(title='Mean Average by Track', xlabel='Track', ylabel='Mean Average')
@@ -78,7 +84,7 @@ axes[2].set(title='Mean Average by Region', xlabel='Region', ylabel='Mean Averag
 graph.text(0.125, -0.1, 'Interpretation:', weight='bold', size=14)
 graph.text(0.125, -0.25, 'By track, Communication holds the highest mean average (67.975).\n'
            'By gender, Male holds the highest mean average (67.183).\n'
-          'By home region, Luzon holds the highest mean average (68.083).')
+           'By home region, Luzon holds the highest mean average (68.083).')
 
 plt.show()
 ```
@@ -87,4 +93,4 @@ plt.show()
 - 2026, September 10: File created.
 - 2026, September 11: Uploaded Jupyter notebook; solutions introduced.
 - 2026, September 12: Introduced explanations for solutions to problems A and B.
-- 2026, September 13: Introduced explanation for solution to problem C (partial).
+- 2026, September 13: Introduced explanation for solution to problem C.
