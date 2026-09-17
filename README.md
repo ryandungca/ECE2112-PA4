@@ -7,7 +7,7 @@ This repository contains code for Programming Assignment 4 of the course ECE2112
 - summarize the relationship between categorical features and a numerical variable; and
 - communicate a data comparison using clear and correctly labeled plots.
 
-To view the code itself, access the [related Python notebook file](ECE2112-PA4.ipynb). The requisite `board2.xlsx` file to be used alongside the code is not included.
+To view the code itself, access the [related Python notebook file](ECE2112-PA4.ipynb). The requisite `board2.xlsx` file to be used alongside the code is included.
 
 To perform all the required tasks, the file `board2.xlsx` is imported as a DataFrame by the line `board = pd.read_excel('board2.xlsx')`; notably, as it is an `.xlsx` file, it uses a different function. Additionally, as the column `Average`, which is required for all three tasks, is missing, it is inserted with the line `board['Average']=(board['Math'] + board['Electronics'] + board['GEAS'] + board['Communication'])/4`, generating the column `Average` based on the values of the `Math`, `Electronics`, `GEAS`, and `Communication` columns. This new column is then attached to the rightmost end of the DataFrame.
 
@@ -94,3 +94,4 @@ plt.show()
 - 2026, September 11: Uploaded Jupyter notebook; solutions introduced.
 - 2026, September 12: Introduced explanations for solutions to problems A and B.
 - 2026, September 13: Introduced explanation for solution to problem C.
+- 2026, September 17: Uploaded requisite spreadsheet file.
